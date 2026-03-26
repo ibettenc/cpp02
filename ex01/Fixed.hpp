@@ -10,16 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
+#ifndef FIXED_HPP
+# define FIXED_HPP
 
-int main()
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Fixed
 {
-Fixed a;
-Fixed b( a );
-Fixed c;
-c = b;
-cout << a.getRawBits() << endl;
-cout << b.getRawBits() << endl;
-cout << c.getRawBits() << endl;
-return 0;
-}
+    private: 
+        int n;
+        static const int bits = 8;
+
+    public:
+        Fixed();
+        Fixed(const int value);
+        Fixed(const float value); 
+        Fixed(const Fixed &src); // appelé quand je crée un nouvel objet à partir d'un existant // Fixed b(a);
+        Fixed &operator=(const Fixed &src); // on remplace le contenu par celui d'un autre // b = a;
+        ~Fixed();
+        float toFloat() const;
+        int toInt() const;
+        int getRawBits() const;
+        void setRawBits(int const raw);
+};
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
+
+#endif

@@ -13,7 +13,7 @@
 ###################################################
 ## ARGUMENTS
 
-NAME = fixed
+NAME = fixed_but_better
 
 CC = c++
 

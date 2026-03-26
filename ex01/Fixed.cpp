@@ -15,20 +15,48 @@
 Fixed::Fixed()
 {
     cout << "Default constructor called" << endl;
-    value = 0;
+    n = 0;
+}
+
+Fixed::Fixed(const int value)
+{
+    cout << "Int constructor called" << endl;
+    n = value * 256;
+}
+
+Fixed::Fixed(const float value)
+{
+    cout << "Float constructor called" << endl;
+    n = roundf(value * 256); // roundf arrondit la valeur a l'entier le plus proche
 }
 
 Fixed::Fixed(const Fixed &src)
 {
     cout << "Copy constructor called" << endl;
-    value = src.getRawBits();
+    n = src.getRawBits();
 }
 
-Fixed &Fixed::operator=(const Fixed &src) //
+float Fixed::toFloat() const
+{
+    return ((float)n / 256);        
+}
+
+int Fixed::toInt() const
+{
+    return (n / 256);
+}
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
+{
+    out << fixed.toFloat();
+    return (out);
+}
+
+Fixed &Fixed::operator=(const Fixed &src)
 {
     cout << "Copy assignment operator called" << endl;
-    value = src.getRawBits();
-    return (*this); // retourne l'objet courant dont on a changé une valeur // (this = pointeur vers, *this = objet) 
+    n = src.getRawBits();
+    return (*this);
 }
 
 Fixed::~Fixed()
@@ -36,13 +64,13 @@ Fixed::~Fixed()
     cout << "Destructor called" << endl;
 }
 
-int Fixed::getRawBits() const // le const dit que la focntion ne va pas modifier les attributs de l'objet ni l'objet
+int Fixed::getRawBits() const
 {
     cout << "getRawBits member function called" << endl;
-    return (value);
+    return (n);
 }
 
 void Fixed::setRawBits(int const raw)
 {
-    value = raw;
+    n = raw;
 }
